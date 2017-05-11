@@ -16,6 +16,10 @@ rm(list=ls(all=TRUE))
 
 # installing  & reading packages
 
+# install.packages("xlsx") 
+# install.packages("forecast")
+# install.packages("tseries")
+# install.packages("rio")
 library(xlsx)
 library(forecast)
 library(tseries)
