@@ -5,4 +5,4 @@
 
 # Projekt kezdete: 2017.05.11.
 
-# Első feladat
+# Első feladat:
