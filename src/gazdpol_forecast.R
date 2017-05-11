@@ -14,3 +14,16 @@
 cat("\014")    
 rm(list=ls(all=TRUE))
 
+# installing  & reading packages
+
+library(xlsx)
+library(forecast)
+library(tseries)
+library(rio)
+
+# original dataset
+
+data0 <- import(file = "data/ger_gdp.xlsx")
+
+#forecast
+test <- ts(data0[1,  2:length(data0[1,])],start=c(1999,2),end = c(2017, 5),frequency = 12 )
