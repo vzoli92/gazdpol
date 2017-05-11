@@ -5,4 +5,12 @@
 
 # Projekt kezdete: 2017.05.11.
 
-# Első feladat:
+#------------------------------------------------------
+# Packages & Data prep.                     
+#------------------------------------------------------
+
+# clear console & environment
+
+cat("\014")    
+rm(list=ls(all=TRUE))
+
