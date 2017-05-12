@@ -27,7 +27,13 @@ library(rio)
 
 # original dataset
 
-data0 <- import(file = "data/ger_gdp.xlsx")
+data0 <- import(file = "data/ger_gdp_hicp.xlsx")
 
 #forecast
 test <- ts(data0[1,  2:length(data0[1,])],start=c(1999,2),end = c(2017, 5),frequency = 12 )
+
+
+#forecast
+gazdpolts <- ts(data0[2:31,2])
+
+b=auto.arima(ts(gazdpolts))
