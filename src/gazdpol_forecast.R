@@ -20,6 +20,10 @@ rm(list=ls(all=TRUE))
 # install.packages("forecast")
 # install.packages("tseries")
 # install.packages("rio")
+# install.packages("mFilter")
+# install.packages("quantmod")
+library(mFilter)
+library(quantmod)
 library(xlsx)
 library(forecast)
 library(tseries)
@@ -35,16 +39,13 @@ head(data0)
 ##########            Zoli próbálkozik        ###########
 #########################################################
 
-gdp <- ts(data0[,2], frequency = 4)
+gdp <- ts(data0[1:108,2], frequency = 4)
 
 plot.ts(gdp)
 
 lgdp <- log(gdp)
 
-# install.packages("mFilter")
-# install.packages("quantmod")
-library(mFilter)
-library(quantmod)
+plot.ts(lgdp)
 
 hpgdp <- hpfilter(lgdp, freq = 1600)
 plot.ts(hpgdp$cycle)
