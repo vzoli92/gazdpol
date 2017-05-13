@@ -10,9 +10,10 @@
 #------------------------------------------------------
 
 # Root Mean Squared Error
-rmse <- function(error)
-{
-  sqrt(mean(error^2))
+rmse <- function( actual, predicted )
+{ 
+  #RMSE
+  print( sqrt( mean(( actual - predicted )^2 )))
 }
 
 # Példa
@@ -29,8 +30,10 @@ predicted <- c(101.2 , 101.5 , 98.6 , 97 , 100.1 , 100.4 , 100.8 , 100.1 , 96.3 
                107.9 , 101.5 , 105.6 , 107.1 , 106.6 , 105.9 , 111.4 , 106.3 , 101.6 , 111 , 
                103.5 , 106.2 , 107.9 , 110.1 , 109.6 , 109.4 , 112.9939, 111.1615, 111.2557 )
 
-# A hibatag kiszámítása
-error <- actual - predicted
+
 
 # Reziduális diagnosztika
-rmse(error)
+rmse(actual,predicted)
+
+
+
