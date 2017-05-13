@@ -61,3 +61,49 @@ for (i in 1:43)
 
 # adott időszaki előrejelzés kiíratása:
  forecast_gdp[[43]]$mean[1:4]
+ 
+ 
+ 
+ #########################################################
+ ##########            Zoli próbálkozik        ###########
+ #########################################################
+ 
+gdp <- ts(data0[,2], frequency = 4)
+           
+plot.ts(gdp)
+           
+lgdp <- log(gdp)
+
+# install.packages("mFilter")
+# install.packages("quantmod")
+library(mFilter)
+library(quantmod)
+           
+hpgdp <- hpfilter(lgdp, freq = 1600)
+plot.ts(hpgdp$cycle)
+
+# az első sor 2005Q4-ig, a második sok 2006Q1-ig tart, és így tovább...
+ts_gdp <- matrix(NA,107,43)
+
+# ezt valahogy úgy kellene definiálni, hogy az auto.arima outputok bele tudjanak menni (még nem tudom hogy kell):
+arima_gdp <- c()   # talán <- NULL?
+forecast_gdp <- c()
+
+for (i in 1:43)
+{ 
+  # a mátrix oszlopaiba kerülnek az idősorok
+  ts_gdp[1:(64+i),(0+i)] <- ts(hpgdp$cycle[1:(64+i)], frequency = 4)
+  
+  # auto.arima az idősorokra
+  arima_gdp[[i]]    <- auto.arima(ts_gdp[,i])
+  
+  # hibatag autokorrelációja - ezt majd meg kell nézni, hogy van-e 
+  # DL tagra szükség
+  # acf_gdp[i]        <- acf(resid(arima_gdp[[i]]))
+  
+  # forecast
+  forecast_gdp[[i]] <- forecast(arima_gdp[[i]], h=4)[4]
+}
+arima_gdp
+forecast_gdp
+
