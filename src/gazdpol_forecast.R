@@ -40,8 +40,8 @@ head(data0)
 ts_gdp <- matrix(NA,107,43)
 
 # ezt valahogy úgy kellene definiálni, hogy az auto.arima outputok bele tudjanak menni (még nem tudom hogy kell):
-# arima_gdp <- NA   # talán <- NULL?
-
+ arima_gdp <- c()   # talán <- NULL?
+ forecast_gdp <- c()
 
 for (i in 1:43)
 { 
@@ -59,4 +59,5 @@ for (i in 1:43)
   forecast_gdp[[i]] <- forecast(arima_gdp[[i]], h=4)[4]
 }
 
-
+# adott időszaki előrejelzés kiíratása:
+ forecast_gdp[[43]]$mean[1:4]
