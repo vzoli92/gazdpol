@@ -29,11 +29,34 @@ library(rio)
 
 data0 <- import(file = "data/ger_gdp_hicp.xlsx")
 
-#forecast
-test <- ts(data0[1,  2:length(data0[1,])],start=c(1999,2),end = c(2017, 5),frequency = 12 )
+head(data0)
+
+#------------------------------------------------------
+# Forecast (GDP - nem görülő minta)
+#------------------------------------------------------
+
+# idősorokat egy mátrixba tesszük: minden új oszlopban egy negyedévvel hosszabb az idősor
+# az első sor 2005Q4-ig, a második sok 2006Q1-ig tart, és így tovább...
+ts_gdp <- matrix(NA,107,43)
+
+# ezt valahogy úgy kellene definiálni, hogy az auto.arima outputok bele tudjanak menni (még nem tudom hogy kell):
+# arima_gdp <- NA   # talán <- NULL?
 
 
-#forecast
-gazdpolts <- ts(data0[2:31,2])
+for (i in 1:43)
+{ 
+  # a mátrix oszlopaiba kerülnek az idősorok
+  ts_gdp[1:(64+i),(0+i)] <- ts(data0[1:(64+i),2], frequency = 4)
+  
+  # auto.arima az idősorokra
+  arima_gdp[[i]]    <- auto.arima(ts_gdp[,i])
+  
+  # hibatag autokorrelációja - ezt majd meg kell nézni, hogy van-e 
+  # DL tagra szükség
+  # acf_gdp[i]        <- acf(resid(arima_gdp[[i]]))
+ 
+  # forecast
+  forecast_gdp[[i]] <- forecast(arima_gdp[[i]], h=4)[4]
+}
 
-b=auto.arima(ts(gazdpolts))
+
